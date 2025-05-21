@@ -13,3 +13,57 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int            @id @default(autoincrement())
+  email     String         @unique
+  firstName String
+  lastName  String
+  createdAt DateTime        @default(now())  
+  updatedAt DateTime        @updatedAt
+  
+  // 관계
+  preferences    UserPreference[]
+  orders         Order[]
+}
+
+model UserPreference {
+  id            Int      @id @default(autoincrement())
+  user_id       Int      @unique
+  receiveEmail  Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+   // 관계 설정
+  user           User             @relation(fields: [user_id], references: [id])
+}
+
+model Product {
+  id             Int              @id @default(autoincrement())
+  name           String
+  description    String
+  category       String
+  price          Float
+  stock          Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  // 관계
+  orders         Order[]
+}
+
+model Order {
+  id             Int              @id @default(autoincrement())
+  user_id        Int              @unique
+  productId      Int
+  status         String           @default("pending")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+   // 관계 설정
+  user           User             @relation(fields: [user_id], references: [id])
+  product        Product          @relation(fields: [productId], references: [id])
+}
+
+
+
