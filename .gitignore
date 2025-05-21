@@ -1,1 +1,22 @@
+# 시스템 파일/디렉토리 무시
+.DS_Store
+Thumbs.db
+
+# 로그, 빌드, 임시 파일
+*.log
+*.tmp
+
+# node_modules 무시
 node_modules/
+
+# 캐시 파일 무시
+.cache/
+.vscode/
+*.swp
+
+# 홈 디렉토리의 설정/환경파일 무시
+/.*history
+/.*rc
+/.profile
+/.bash*
+/.sudo_as_admin_successful
