@@ -20,3 +20,7 @@ node_modules/
 /.profile
 /.bash*
 /.sudo_as_admin_successful
+
+# Prisma 관련 파일 무시
+generated/prisma/
+*.env
