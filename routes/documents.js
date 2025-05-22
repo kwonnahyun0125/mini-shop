@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var multer = express.Router();
+const multer = require('multer');
 var fs = require('fs');
 var path = require('path'); 
 const { db } = require('../utils/db');
@@ -18,10 +18,10 @@ const upload = multer({dest: 'uploads/'});
 
 // GET /documents - 모든 문서 리스트 조회
 router.get('/list', async (req, res, next) => {
-  const Docs = await db.Document.findMany({
+  const docs = await db.document.findMany({
     orderBy: {createdAt: 'desc'},
   });
-  res.json({ requestTime: req.requestTime, Documents: Docs});
+  res.json({ requestTime: req.requestTime, documents: docs});
 }); 
 
 
@@ -41,12 +41,12 @@ router.post('/upload',upload.single('file'), async (req, res, next) => {
   // req.file.mimtype;
   // req.file.size;
   // '/Documents/files/${newFileName}';
-  const file = await db.Documen.create({
+  const file = await db.document.create({
     data: {
       filename: newFileName,
       mimetype: req.file.mimetype,
       size: req.file.size,
-      url: `/Documents/files/${newFileName}`,
+      url: `/documents/files/${newFileName}`,
     },
   });
   // filename String
