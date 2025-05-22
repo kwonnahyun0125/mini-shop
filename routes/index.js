@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* GET Health check. */
 router.get('/', function(req, res, next) {
-  res.send ('index');
+  console.log(req.requestTime);
+  res.send ('OK');
 });
 
 module.exports = router;
