@@ -16,6 +16,7 @@
     "is-email": "^1.0.2",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
+    "multer": "^2.0.0",
     "superstruct": "^2.0.2"
   },
   "main": "app.js",

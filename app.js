@@ -25,7 +25,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
-app.use('/Documents', DocumentsRouter);
+app.use('/Documents/files', express.static('uploads'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
