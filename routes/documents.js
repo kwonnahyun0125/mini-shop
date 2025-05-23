@@ -58,4 +58,15 @@ router.post('/upload',upload.single('file'), async (req, res, next) => {
     res.json({message: 'OK'});
 });
 
+
+router.get('/download/:id', async (req, res, next) => {
+  const id  = Number(req.params.id); 
+  const doc = await db.document.findUnique({where: {id: Number(req.params.id)}});
+  if (!doc) {
+    return res.status(404).json({error: 'Document not found'});
+  }
+  const filePath = path.resolve ('uploads', doc.url.split('/').pop());
+  res.download(filePath. doc.filename);
+ });
+
 module.exports = router;
