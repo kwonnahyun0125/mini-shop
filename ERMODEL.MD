@@ -34,5 +34,5 @@ erDiagram
     }
 
     User ||--|| UserPreference : "회원가입"
-    User ||--o{ Order : "주문시"
-    Order }o--o{ Product : "주문시"
+    User ||--o Order : "주문시"
+    Order o--o Product : "주문시"
