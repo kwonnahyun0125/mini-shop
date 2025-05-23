@@ -63,10 +63,26 @@ router.get('/download/:id', async (req, res, next) => {
   const id  = Number(req.params.id); 
   const doc = await db.document.findUnique({where: {id: Number(req.params.id)}});
   if (!doc) {
-    return res.status(404).json({error: 'Document not found'});
+    return res.status(404).json({error: 'File not found'});
   }
   const filePath = path.resolve ('uploads', doc.url.split('/').pop());
   res.download(filePath. doc.filename);
+ });
+
+ router.delete('/:id', async (req, res, next) => {
+  const doc = await db.document.findUnique({where: {id: Number(req.params.id)}});
+  if (!doc) {
+    return res.status(404).json({error: 'File not found'});
+  }
+  const filePath = path.resolve ('uploads', doc.url.split('/').pop());
+  
+  try{
+  await db.document.delete({where: {id: Number(req.params.id)}});
+  await fs.promises.unlink(filePath);
+  res.json({message: 'OK'});
+  } catch (error) {
+      res.status(500).json({error: 'Failed to delete file'});
+  }
  });
 
 module.exports = router;
